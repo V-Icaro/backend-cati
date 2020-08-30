@@ -1,0 +1,17 @@
+{
+  "name": "cati",
+  "version": "1.0.0",
+  "description": "Controle de Equipamentos da Cati",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "author": "Venicius Icaro",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-validator": "^6.6.0",
+    "pg": "^8.2.1"
+  }
+}
