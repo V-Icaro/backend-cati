@@ -37,7 +37,7 @@ module.exports = {
 
     await pool.query('SELECT * FROM computadores WHERE patrimonio = $1 ', [patrimonio], (error, results) => {
       if(results.rows[0]){
-        return res.status(500).send('Já exite')
+        return res.status(400).send('Já existe um computador com este patrimônio')
       }else{
         pool.query('INSERT INTO computadores (patrimonio, marca, modelo, numero_serie, status, unidade, localizacao) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *', [patrimonio, marca, modelo, numero_serie, status, unidade, localizacao], (error, results) => {
           if (results) {
