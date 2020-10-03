@@ -51,11 +51,17 @@ module.exports = {
     async updateComputador(req, res){
     const id = req.params.id
     const { patrimonio, marca, modelo, numero_serie, status, unidade, localizacao } = req.body
-      await pool.query('UPDATE computadores SET (patrimonio, marca, modelo, numero_serie, status, unidade, localizacao) = ($1, $2, $3, $4, $5, $6, $7) WHERE id = $8', [patrimonio, marca, modelo, numero_serie, status, unidade, localizacao, id], (error, results) => {
+    await pool.query('SELECT * FROM computadores WHERE patrimonio = $1 ', [patrimonio], (error, results) => {
+      if(results.rows[0]){
+        return res.status(400).send('Já existe um computador com este patrimônio')
+      }else{
+       pool.query('UPDATE computadores SET (patrimonio, marca, modelo, numero_serie, status, unidade, localizacao) = ($1, $2, $3, $4, $5, $6, $7) WHERE id = $8', [patrimonio, marca, modelo, numero_serie, status, unidade, localizacao, id], (error, results) => {
         if (results) {
           return res.status(200).send('Cadastrado com sucesso')
         }
     })
+  }
+  })
   },
 
   async deleteComputador(req, res) {
